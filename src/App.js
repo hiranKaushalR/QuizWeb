@@ -12,10 +12,13 @@ import './App.css';
     const [isAnswerChecked, setIsAnswerChecked] = useState (false)
     const [isStartScreenShowing, setIsStartScreenShowing] = useState(true);
     const [areAnswersClickable, setAreAnswersClickable] = useState (true)
+    const [questionLen, setQuestionLen] = useState (5)
+    const [difficulty, setDifficulty] = useState ('easy')
+    const [category, setCategory] = useState (9)
 
 
     const apiURL =
-          'https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple';
+          `https://opentdb.com/api.php?amount=${questionLen}&category=${category}&difficulty=${difficulty}&type=multiple`;
 
   function toggleStartScreen() {
     setIsStartScreenShowing(false);
@@ -23,7 +26,7 @@ import './App.css';
   }
 
   const choseNumOfQuestions = 
-            <div> 
+            <div onChange={getLenOfQuestions}> 
               <select name="difficulty" id="difficulty" form="difficultyform">
                 <option value="5">5</option>
                 <option value="10">10</option>
@@ -32,7 +35,7 @@ import './App.css';
             </div>
 
   const choseDifficulty = 
-            <div>
+            <div onChange={getDifficulty}>
               <select name="num" id="num" form="numform">
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
@@ -40,6 +43,36 @@ import './App.css';
               </select>
             </div>
 
+  const choseCategory = 
+            <div onChange={getCategory}>
+              <select name='category' id='category' form='categoryform'>
+                <option value="9">General Knowledge</option>
+                <option value="26">Celibrites</option>
+                <option value="11">Movies</option>
+                <option value="31">Anime & Manga</option>
+                <option value="15">Video Games</option>
+                <option value="12">Music</option>
+                <option value="19">Mathematics</option>
+                <option value="17">Science & Nature</option>
+                <option value="20">Mythology</option>
+                <option value="23">History</option>
+                <option value="21">Sports</option>
+                <option value="28">Vehicles</option>
+              </select>
+            </div>
+
+  function getLenOfQuestions (event) {
+    setQuestionLen (event.target.value)
+  }
+
+  function getDifficulty (event) {
+    setDifficulty(event.target.value)
+  }
+
+  function getCategory (event) {
+    setCategory (event.target.value)
+    console.log (event.target.className)
+  }
 
 
   async function fetchData() {
@@ -149,6 +182,7 @@ import './App.css';
           toggleStartScreen={toggleStartScreen}
           choseDifficulty={choseDifficulty} 
           choseNumOfQuestions={choseNumOfQuestions}
+          choseCategory={choseCategory}
         />
         </div>     
         

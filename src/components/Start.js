@@ -16,8 +16,10 @@ function Start (props) {
 
                     <h1 className="start-screen--topic">Quizzical</h1>
                     <form className="form">
+                        {props.choseCategory}
                         {props.choseDifficulty}
                         {props.choseNumOfQuestions}
+
                     </form>
                     
                     <p className="start-screen--sub-topic">
