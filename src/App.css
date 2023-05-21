@@ -1,0 +1,27 @@
+
+.App {
+    text-align: center;
+}
+
+.div--answer-checked-btns {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.btn--check-answer {
+    padding: .8em 1.6em;
+    border: none;
+    background-color: #293264;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: white;
+    border-radius: 1em;
+    cursor: pointer;
+    margin: .8em 0;
+}
+
+.btn--check-answer:active {
+    box-shadow: inset 5px 5px 7px 0 #000000;
+  }
+
+
