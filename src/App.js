@@ -4,6 +4,7 @@ import Start from './components/Start';
 import Quiz from './components/Quiz';
 import Confetti from 'react-confetti'
 import { useWindowSize } from 'react-use'
+
 import './App.css';
 
   function App() {
@@ -31,6 +32,7 @@ import './App.css';
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
+                <option value="20">20</option>
               </select>
             </div>
 
@@ -60,6 +62,22 @@ import './App.css';
                 <option value="28">Vehicles</option>
               </select>
             </div>
+
+  let selectedCategory;
+  if (category === 9) {selectedCategory = 'General Knowledge'}
+  else if (category === 26) {selectedCategory = 'Celibrites'}
+  else if (category === 26) {selectedCategory = 'Movies'}
+  else if (category === 11) {selectedCategory = 'Anime & Manga'}
+  else if (category === 31) {selectedCategory = 'Video Games'}
+  else if (category === 15) {selectedCategory = 'Music'}
+  else if (category === 12) {selectedCategory = 'Mathematics'}
+  else if (category === 19) {selectedCategory = 'Science & Nature'}
+  else if (category === 17) {selectedCategory = 'Mythology'}
+  else if (category === 20) {selectedCategory = 'History'}
+  else if (category === 23) {selectedCategory = 'Sports'}
+  else if (category === 21) {selectedCategory = 'Vehicles'}
+  else if (category === 28) {selectedCategory = 'Celibrites'}
+
 
   function getLenOfQuestions (event) {
     setQuestionLen (event.target.value)
@@ -190,7 +208,7 @@ import './App.css';
                                                
       {!isStartScreenShowing && (
         <>
-          
+                
           {selectedCorrectAnswersLen === questions.length &&
             <
               Confetti
