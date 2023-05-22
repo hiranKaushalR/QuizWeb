@@ -26,7 +26,7 @@ function Quiz(props) {
   
     const answerButtons = shuffledAnswers.map((answer, index) => {
       const isSelected = answer === props.selectedAnswer;
-      const isCorrect = answer == props.correctAnswer
+      const isCorrect = answer === props.correctAnswer
 
       let buttonStyle =  {
         color: isSelected ? 'white' : 'black',

@@ -1,8 +1,10 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Start from './components/Start';
 import Quiz from './components/Quiz';
+import CountDown from './components/CountDown';
 import Confetti from 'react-confetti'
+import { ClockLoader } from 'react-spinners';
 import { useWindowSize } from 'react-use'
 
 import './App.css';
@@ -14,8 +16,10 @@ import './App.css';
     const [isStartScreenShowing, setIsStartScreenShowing] = useState(true);
     const [areAnswersClickable, setAreAnswersClickable] = useState (true)
     const [questionLen, setQuestionLen] = useState (5)
+    const [loading, setLoading] = useState (false)
     const [difficulty, setDifficulty] = useState ('easy')
     const [category, setCategory] = useState (9)
+    const [Countdown, setCountdown] = useState (100)
 
 
     const apiURL =
@@ -63,20 +67,19 @@ import './App.css';
               </select>
             </div>
 
-  let selectedCategory;
-  if (category === 9) {selectedCategory = 'General Knowledge'}
-  else if (category === 26) {selectedCategory = 'Celibrites'}
-  else if (category === 26) {selectedCategory = 'Movies'}
-  else if (category === 11) {selectedCategory = 'Anime & Manga'}
-  else if (category === 31) {selectedCategory = 'Video Games'}
-  else if (category === 15) {selectedCategory = 'Music'}
-  else if (category === 12) {selectedCategory = 'Mathematics'}
-  else if (category === 19) {selectedCategory = 'Science & Nature'}
-  else if (category === 17) {selectedCategory = 'Mythology'}
-  else if (category === 20) {selectedCategory = 'History'}
-  else if (category === 23) {selectedCategory = 'Sports'}
-  else if (category === 21) {selectedCategory = 'Vehicles'}
-  else if (category === 28) {selectedCategory = 'Celibrites'}
+  let selectedCategory = 'General Knowledge';
+  if (category === '9') {selectedCategory = 'General Knowledge'}
+  else if (category === '26') {selectedCategory = 'Celibrites'}
+  else if (category === '11') {selectedCategory = 'Movies'}
+  else if (category === '31') {selectedCategory = 'Anime & Manga'}
+  else if (category === '15') {selectedCategory = 'Video Games'}
+  else if (category === '12') {selectedCategory = 'Music'}
+  else if (category === '19') {selectedCategory = 'Mathematics'}
+  else if (category === '17') {selectedCategory = 'Science & Nature'}
+  else if (category === '20') {selectedCategory = 'Mythology'}
+  else if (category === '23') {selectedCategory = 'History'}
+  else if (category === '21') {selectedCategory = 'Sports'}
+  else if (category === '28') {selectedCategory = 'Vehicles'}
 
 
   function getLenOfQuestions (event) {
@@ -89,7 +92,6 @@ import './App.css';
 
   function getCategory (event) {
     setCategory (event.target.value)
-    console.log (event.target.className)
   }
 
 
@@ -149,9 +151,14 @@ import './App.css';
     setAreAnswersClickable (true)
   }
   
+  
 
   function mainMenu () {
     setIsStartScreenShowing (true)
+    setLoading (true)
+    setTimeout (() => {
+      setLoading (false)
+    }, 5000)
     setQuestions ([])
   }
 
@@ -172,6 +179,7 @@ import './App.css';
     setSelectedCorrectAnswersLen(numOfCorrectAnswers);
     setIsAnswerChecked (true)
     setAreAnswersClickable (false)
+    updateCountdown(0)
   }
   
   const checkAnswers = isAnswerChecked ? 
@@ -191,6 +199,18 @@ import './App.css';
     
     const { width, height } = useWindowSize()
 
+    // For loading screen 
+    useEffect (() => {
+      setLoading (true)
+      setTimeout (() => {
+        setLoading (false)
+      }, 500)
+    }, [])
+
+    function updateCountdown(newCountdown) {
+      setCountdown(newCountdown);
+    }
+
   return (
     <div className="App">                      
       {isStartScreenShowing && (   
@@ -201,6 +221,9 @@ import './App.css';
           choseDifficulty={choseDifficulty} 
           choseNumOfQuestions={choseNumOfQuestions}
           choseCategory={choseCategory}
+          difficulty={difficulty}
+          questionLen={questionLen}
+          selectedCategory={selectedCategory}
         />
         </div>     
         
@@ -208,26 +231,38 @@ import './App.css';
                                                
       {!isStartScreenShowing && (
         <>
-                
-          {selectedCorrectAnswersLen === questions.length &&
-            <
-              Confetti
-              width={width - 25}
-              height={height * questions.length/3}
-              numberOfPieces={400}
-              gravity={.13}
-            />
+          { loading ? 
+            <ClockLoader color="#36d7b7" /> 
+              :
+            <>
+              {selectedCorrectAnswersLen === questions.length &&
+                <
+                  Confetti
+                  width={width - 25}
+                  height={height * questions.length/3}
+                  numberOfPieces={400}
+                  gravity={.13}
+                />
+              }
+
+
+              <CountDown 
+                seconds={Countdown} 
+                console={checkAnswersClick}
+                updateCountdown={updateCountdown}
+              />
+              {quizElements}
+          
+
+              {isAnswerChecked && 
+                <p>
+                  You Got {selectedCorrectAnswersLen} out of {questions.length}
+                </p>
+              }
+
+              {checkAnswers}
+            </> 
           }
-
-          {quizElements}
-
-          {isAnswerChecked && 
-            <p>
-              You Got {selectedCorrectAnswersLen} out of {questions.length}
-            </p>
-          }
-
-          {checkAnswers}
         </>
       )}
     </div>
