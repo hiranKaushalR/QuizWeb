@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Start from './components/Start';
 import Quiz from './components/Quiz';
 import Confetti from 'react-confetti'
-import { ClockLoader } from 'react-spinners';
+import { SyncLoader } from 'react-spinners';
 import { useWindowSize } from 'react-use'
 
 import './App.css';
@@ -228,7 +228,7 @@ import './App.css';
       {!isStartScreenShowing && (
         <>
           { loading ? 
-            <ClockLoader color="#36d7b7" /> 
+            <SyncLoader color="#36d7b7" /> 
               :
             <>
               {selectedCorrectAnswersLen === questions.length &&
