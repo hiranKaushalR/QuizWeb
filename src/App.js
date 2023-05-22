@@ -2,7 +2,6 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Start from './components/Start';
 import Quiz from './components/Quiz';
-import CountDown from './components/CountDown';
 import Confetti from 'react-confetti'
 import { ClockLoader } from 'react-spinners';
 import { useWindowSize } from 'react-use'
@@ -19,7 +18,6 @@ import './App.css';
     const [loading, setLoading] = useState (false)
     const [difficulty, setDifficulty] = useState ('easy')
     const [category, setCategory] = useState (9)
-    const [Countdown, setCountdown] = useState (100)
 
 
     const apiURL =
@@ -179,7 +177,7 @@ import './App.css';
     setSelectedCorrectAnswersLen(numOfCorrectAnswers);
     setIsAnswerChecked (true)
     setAreAnswersClickable (false)
-    updateCountdown(0)
+
   }
   
   const checkAnswers = isAnswerChecked ? 
@@ -204,12 +202,10 @@ import './App.css';
       setLoading (true)
       setTimeout (() => {
         setLoading (false)
-      }, 500)
+      }, 5000)
     }, [])
 
-    function updateCountdown(newCountdown) {
-      setCountdown(newCountdown);
-    }
+ 
 
   return (
     <div className="App">                      
@@ -245,12 +241,6 @@ import './App.css';
                 />
               }
 
-
-              <CountDown 
-                seconds={Countdown} 
-                console={checkAnswersClick}
-                updateCountdown={updateCountdown}
-              />
               {quizElements}
           
 
