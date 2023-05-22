@@ -24,7 +24,7 @@ function Start (props) {
                     
                     <p className="start-screen--sub-topic">
 
-                        Come And Test Your Worthless Brain By Doing This Shitty Quiz
+                        You will be asked {props.questionLen} {props.difficulty} level questions about {props.selectedCategory}
 
                     </p>
                     <button onClick={props.toggleStartScreen} className="start-screen--btn">Start Quiz</button>
