@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import DarkModeToggle from "react-dark-mode-toggle";
 
 const he = require('he');
 
@@ -59,9 +60,10 @@ function Quiz(props) {
   
     return (
       <div className="quiz-parent">
+         
         <div>
           <p>{decodedQuestion}</p>
-          <p>Correct Answer: {decodedCorrectAnswer}</p>
+          {/* <p>Correct Answer: {decodedCorrectAnswer}</p> */}
           {answerButtons}
           
         </div>
