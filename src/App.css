@@ -24,4 +24,7 @@
     box-shadow: inset 5px 5px 7px 0 #000000;
   }
 
-
+.len {
+    background-color: #000000;
+    color: blue;
+}

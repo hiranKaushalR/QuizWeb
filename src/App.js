@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Start from './components/Start';
 import Quiz from './components/Quiz';
 import Confetti from 'react-confetti'
+import DarkModeToggle from "react-dark-mode-toggle";
 import { SyncLoader } from 'react-spinners';
 import { useWindowSize } from 'react-use'
 
@@ -18,6 +19,8 @@ import './App.css';
     const [loading, setLoading] = useState (false)
     const [difficulty, setDifficulty] = useState ('easy')
     const [category, setCategory] = useState (9)
+    const [isDarkMode, setIsDarkMode] = useState(() => false);
+
 
 
     const apiURL =
@@ -29,7 +32,7 @@ import './App.css';
   }
 
   const choseNumOfQuestions = 
-            <div onChange={getLenOfQuestions}> 
+            <div onChange={getLenOfQuestions} > 
               <select name="difficulty" id="difficulty" form="difficultyform">
                 <option value="5">5</option>
                 <option value="10">10</option>
@@ -202,13 +205,17 @@ import './App.css';
       setLoading (true)
       setTimeout (() => {
         setLoading (false)
-      }, 5000)
+      }, 50)
     }, [])
 
+    const bgStyle = {
+      backgroundColor: isDarkMode ? 'black' : 'white',
+      color: isDarkMode ? 'white' : 'black'
+    }
  
 
   return (
-    <div className="App">                      
+    <div className="App"  style={bgStyle}>                      
       {isStartScreenShowing && (   
         <div className='pakaya'>    
         <Start
@@ -220,13 +227,15 @@ import './App.css';
           difficulty={difficulty}
           questionLen={questionLen}
           selectedCategory={selectedCategory}
+          isDarkMode={isDarkMode}
+          setIsDarkMode={setIsDarkMode}
         />
         </div>     
         
       )}
                                                
       {!isStartScreenShowing && (
-        <>
+        <div>
           { loading ? 
             <SyncLoader color="#36d7b7" /> 
               :
@@ -241,8 +250,14 @@ import './App.css';
                 />
               }
 
+              <DarkModeToggle 
+                checked={isDarkMode} 
+                onChange={setIsDarkMode} 
+                size={60}
+                speed={2.5}
+              />
+
               {quizElements}
-          
 
               {isAnswerChecked && 
                 <p>
@@ -253,7 +268,7 @@ import './App.css';
               {checkAnswers}
             </> 
           }
-        </>
+        </div>
       )}
     </div>
   );
