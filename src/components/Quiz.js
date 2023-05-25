@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import DarkModeToggle from "react-dark-mode-toggle";
 
 const he = require('he');
 
@@ -10,6 +9,7 @@ function Quiz(props) {
   
     const answers = [...props.incorrectAnswers];
     const correctAnswer = props.correctAnswer;
+    const isDarkMode = props.isDarkMode
   
     useEffect(() => {
       const shuffled = [...answers];
@@ -28,12 +28,17 @@ function Quiz(props) {
     const answerButtons = shuffledAnswers.map((answer, index) => {
       const isSelected = answer === props.selectedAnswer;
       const isCorrect = answer === props.correctAnswer
-
+      
       let buttonStyle =  {
-        color: isSelected ? 'white' : 'black',
-        backgroundColor: isSelected ? 'blue' : 'transparent',
+        color: isDarkMode ? 'white' : 'black',
+        backgroundColor: isDarkMode ? 'transparent' : 'transparent',
       } 
-      if (props.isAnswerChecked) {
+
+      if (isSelected) {
+        buttonStyle = {color: 'white', backgroundColor: 'blue'} 
+      }
+
+      if(props.isAnswerChecked) {
         if (isSelected && isCorrect) {
           buttonStyle = {backgroundColor: 'green', color: 'white'};
         } else if (!isSelected && isCorrect) {
@@ -63,9 +68,8 @@ function Quiz(props) {
          
         <div>
           <p>{decodedQuestion}</p>
-          {/* <p>Correct Answer: {decodedCorrectAnswer}</p> */}
+          <p>Correct Answer: {decodedCorrectAnswer}</p>
           {answerButtons}
-          
         </div>
       </div>
     );
