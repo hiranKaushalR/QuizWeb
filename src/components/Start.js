@@ -13,14 +13,9 @@ function Start (props) {
     }
 
     const btnStyles = {
-        backgroundColor: props.isDarkMode ? '#D3D3D3' : '#FFFFFF',
-        color: props.isDarkMode ? '#001219' : '#293264'
+        backgroundColor: props.isDarkMode ? '#D3D3D3' : '#293264',
+        color: props.isDarkMode ? '#001219' : '#FFFFFF'
     }
-
-
-
-    
-
 
     return (
         <>
@@ -29,16 +24,14 @@ function Start (props) {
             <DarkModeToggle 
                 checked={props.isDarkMode} 
                 onChange={props.setIsDarkMode} 
-                size={60}
-                speed={2.5}
+                size={65}
+                speed={2}
+                className="start-screen--dark-btn"
             />
             
 
             <div className="start-screen--parent">
-
-                <div className="start-screen--sub-parent">
-                    
-
+                <div className="start-screen--sub-parent">           
                     <h1 className="start-screen--topic">Quizzical</h1>
                     <form className="form">
                         {props.choseCategory}
@@ -52,9 +45,7 @@ function Start (props) {
                     </p>
                     <button style={btnStyles} onClick={props.toggleStartScreen} className="start-screen--btn">Start Quiz</button>
                 </div>
-
             </div>
-
         </div>
         </>
     )

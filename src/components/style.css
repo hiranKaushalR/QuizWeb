@@ -7,19 +7,9 @@
       position: relative;
   }
 
-  .upper-img {
-
-      position: absolute;
-      top: 0;
-      right: 0;
-      align-self: flex-start;
-  }
-
-  .lower-img {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-
+  .start-screen--dark-btn { 
+    position: absolute;
+    top: 1em;
   }
 
   .start-screen--parent {
@@ -100,3 +90,24 @@
   }
   
 /* Quiz Screen */
+
+nav {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+  padding: 10px;
+}
+
+.heading {
+  font-family: 'Orbitron', sans-serif;
+  padding: 5px;
+  font-size: 1.5rem;
+  font-weight: 900; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+}

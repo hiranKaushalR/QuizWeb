@@ -1,13 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Start from './components/Start';
+import Head from './components/Head';
 import Quiz from './components/Quiz';
 import Confetti from 'react-confetti'
-import DarkModeToggle from "react-dark-mode-toggle";
 import { SyncLoader } from 'react-spinners';
 import { useWindowSize } from 'react-use'
-
 import './App.css';
+
 
   function App() {
     const [questions, setQuestions] = useState([]);
@@ -20,6 +20,10 @@ import './App.css';
     const [difficulty, setDifficulty] = useState ('easy')
     const [category, setCategory] = useState (9)
     const [isDarkMode, setIsDarkMode] = useState(() => false);
+    const [isTimerPlaying, setIsTimerPlaying] = useState (true)
+    // const [countDownTime, setCountDownTime] = useState (0)
+    const [key, setKey] = useState(0);
+
 
 
 
@@ -28,12 +32,13 @@ import './App.css';
 
   function toggleStartScreen() {
     setIsStartScreenShowing(false);
+    setIsTimerPlaying (true)
     fetchData();
   }
 
   const choseNumOfQuestions = 
             <div onChange={getLenOfQuestions} > 
-              <select name="difficulty" id="difficulty" form="difficultyform">
+              <select className='select-form' name="difficulty" id="difficulty" form="difficultyform">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
@@ -43,7 +48,7 @@ import './App.css';
 
   const choseDifficulty = 
             <div onChange={getDifficulty}>
-              <select name="num" id="num" form="numform">
+              <select className='select-form' name="num" id="num" form="numform">
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
@@ -52,9 +57,9 @@ import './App.css';
 
   const choseCategory = 
             <div onChange={getCategory}>
-              <select name='category' id='category' form='categoryform'>
+              <select className='select-form' name='category' id='category' form='categoryform'>
                 <option value="9">General Knowledge</option>
-                <option value="26">Celibrites</option>
+                <option value="26">Celebrities</option>
                 <option value="11">Movies</option>
                 <option value="31">Anime & Manga</option>
                 <option value="15">Video Games</option>
@@ -70,7 +75,7 @@ import './App.css';
 
   let selectedCategory = 'General Knowledge';
   if (category === '9') {selectedCategory = 'General Knowledge'}
-  else if (category === '26') {selectedCategory = 'Celibrites'}
+  else if (category === '26') {selectedCategory = 'celebrities'}
   else if (category === '11') {selectedCategory = 'Movies'}
   else if (category === '31') {selectedCategory = 'Anime & Manga'}
   else if (category === '15') {selectedCategory = 'Video Games'}
@@ -81,6 +86,9 @@ import './App.css';
   else if (category === '23') {selectedCategory = 'History'}
   else if (category === '21') {selectedCategory = 'Sports'}
   else if (category === '28') {selectedCategory = 'Vehicles'}
+
+
+
 
 
   function getLenOfQuestions (event) {
@@ -127,19 +135,6 @@ import './App.css';
     );
   }
 
-  const quizElements = questions.map((quiz) => (
-    <Quiz
-      questionId={quiz.id}
-      question={quiz.question}
-      key={quiz.id}
-      selectedAnswer={quiz.selectedAnswer}
-      correctAnswer={quiz.correct_answer}
-      incorrectAnswers={quiz.incorrect_answers}
-      selectAnswer={(answer) => selectAnswer(quiz.id, answer)}
-      isAnswerChecked={isAnswerChecked}
-    />
-  ));
-
   function resetQuiz() {
     setQuestions((prevQuestions) =>
       prevQuestions.map((question) => ({
@@ -150,6 +145,8 @@ import './App.css';
     setIsAnswerChecked(false);
     setSelectedCorrectAnswersLen(0);
     setAreAnswersClickable (true)
+    setIsTimerPlaying (true)
+    setKey((prevKey) => prevKey + 1);
   }
   
   
@@ -180,7 +177,7 @@ import './App.css';
     setSelectedCorrectAnswersLen(numOfCorrectAnswers);
     setIsAnswerChecked (true)
     setAreAnswersClickable (false)
-
+    setIsTimerPlaying (false)
   }
   
   const checkAnswers = isAnswerChecked ? 
@@ -209,9 +206,24 @@ import './App.css';
     }, [])
 
     const bgStyle = {
-      backgroundColor: isDarkMode ? 'black' : 'white',
+      backgroundColor: isDarkMode ? 'black' : '#ffffff',
       color: isDarkMode ? 'white' : 'black'
     }
+
+    const quizElements = questions.map((quiz) => (
+      <Quiz
+        questionId={quiz.id}
+        question={quiz.question}
+        key={quiz.id}
+        selectedAnswer={quiz.selectedAnswer}
+        correctAnswer={quiz.correct_answer}
+        incorrectAnswers={quiz.incorrect_answers}
+        selectAnswer={(answer) => selectAnswer(quiz.id, answer)}
+        isAnswerChecked={isAnswerChecked}
+        isDarkMode={isDarkMode}
+      />
+    ));
+
  
 
   return (
@@ -250,11 +262,15 @@ import './App.css';
                 />
               }
 
-              <DarkModeToggle 
-                checked={isDarkMode} 
-                onChange={setIsDarkMode} 
-                size={60}
-                speed={2.5}
+              <Head 
+                isDarkMode={isDarkMode}
+                setIsDarkMode={setIsDarkMode}
+                key={key}
+                checkAnswersClick={checkAnswersClick}
+                isTimerPlaying={isTimerPlaying}
+                selectedCategory={selectedCategory}
+                difficulty={difficulty}
+                questionLen={questionLen}
               />
 
               {quizElements}
