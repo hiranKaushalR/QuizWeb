@@ -12,16 +12,16 @@ function Head(props) {
   };
 
   let countDownTime = 0;
-  if (props.questionLen === 5) {
+  if (Number (props.questionLen) === 5) {
     countDownTime = 30;
   }
-  if (props.questionLen === 10) {
+  if (Number (props.questionLen) === 10) {
     countDownTime = 60;
   }
-  if (props.questionLen === 15) {
+  if (Number (props.questionLen) === 15) {
     countDownTime = 90;
   }
-  if (props.questionLen === 20) {
+  if (Number (props.questionLen) === 20) {
     countDownTime = 120;
   }
 
