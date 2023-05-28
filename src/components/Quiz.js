@@ -20,10 +20,10 @@ function Quiz(props) {
     typeof props.question === "string"
       ? he.decode(props.question)
       : props.question;
-  const decodedCorrectAnswer =
-    typeof correctAnswer === "string"
-      ? he.decode(correctAnswer)
-      : correctAnswer;
+  // const decodedCorrectAnswer =
+  //   typeof correctAnswer === "string"
+  //     ? he.decode(correctAnswer)
+  //     : correctAnswer;
 
   const selectAnswer = (answer) => {
     props.selectAnswer(answer);
