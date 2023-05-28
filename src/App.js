@@ -4,7 +4,6 @@ import Start from "./components/Start";
 import Head from "./components/Head";
 import Quiz from "./components/Quiz";
 import { SyncLoader } from "react-spinners";
-import { useWindowSize } from "react-use";
 import "./App.css";
 
 function App() {
@@ -249,7 +248,6 @@ function App() {
     </button>
   );
 
-  const { width, height } = useWindowSize();
 
   const selectedAnswers = questions.map((ans) => ans.selectedAnswer);
 
