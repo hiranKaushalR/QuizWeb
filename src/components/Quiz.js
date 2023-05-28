@@ -97,7 +97,7 @@ function Quiz(props) {
         <div className="quizing-section">
           <p className="questions">{decodedQuestion}</p>
           <p>Correct Answer: {decodedCorrectAnswer}</p>
-          {answerButtons}
+            {answerButtons}
         </div>
         <hr width="80%" />
       </div>

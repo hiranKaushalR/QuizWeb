@@ -319,8 +319,9 @@ function App() {
                   </p>
                 </div>
               )}
-
-              {checkAnswers}
+              <div className="check-answer-btns">
+                {checkAnswers}
+              </div>
             </>
           )}
         </div>
