@@ -7,8 +7,8 @@ import "./style.css";
 
 function Head(props) {
   const headingStyles = {
-    color: props.isDarkMode ? "white" : "black",
-    backgroundColor: props.isDarkMode ? "#021B2C" : "#edfcfc",
+    color: props.isDarkMode ? "#FFFFFF" : "#000000",
+    backgroundColor: props.isDarkMode ? "#021B2C" : "#EDFCFC",
   };
 
   let countDownTime = 0;
