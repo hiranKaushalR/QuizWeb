@@ -29,6 +29,10 @@ function Quiz(props) {
     props.selectAnswer(answer);
   };
 
+  const hLineStyles = {
+    backgroundColor: isDarkMode ? '#3D3B3B' : '#A6A2A2'
+  }
+
   const answerButtons = shuffledAnswers.map((answer, index) => {
     const isSelected = answer === props.selectedAnswer;
     const isCorrect = answer === props.correctAnswer;
@@ -43,6 +47,8 @@ function Quiz(props) {
         ? { color: "#ECECEC", backgroundColor: "#444C87" }
         : { color: "#293264", backgroundColor: "#D6DBF5" };
     }
+
+   
 
     if (props.isAnswerChecked) {
       // Answer Buttons In Light Mode
@@ -96,10 +102,10 @@ function Quiz(props) {
       <div className="quiz-sub-parent">
         <div className="quizing-section">
           <p className="questions">{decodedQuestion}</p>
-          <p>Correct Answer: {decodedCorrectAnswer}</p>
+          {/* <p>Correct Answer: {decodedCorrectAnswer}</p> */}
             {answerButtons}
         </div>
-        <hr width="80%" />
+        <hr width="80%" style={hLineStyles}/>
       </div>
     </div>
   );

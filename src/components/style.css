@@ -101,6 +101,11 @@ form {
   color: white;
 }
 
+hr{
+  height: 2px;
+  border: none;
+}
+
 /* Quiz Screen */
 
 header {
