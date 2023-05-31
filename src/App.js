@@ -22,6 +22,25 @@ function App() {
 
   const apiURL = `https://opentdb.com/api.php?amount=${questionLen}&category=${category}&difficulty=${difficulty}&type=multiple`;
 
+  async function fetchData() {
+    try {
+      const response = await fetch(apiURL);
+      const data = await response.json();
+      const questionsWithId = data.results.map((question, index) => ({
+        ...question,
+        id: index,
+        selectedAnswer: null,
+      }));
+      setQuestions(questionsWithId);
+      setIsAnswerChecked(false);
+      setSelectedCorrectAnswersLen(0);
+      setAreAnswersClickable(true);
+      setIsLoading(false);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  }
+ 
   function toggleStartScreen() {
     setIsStartScreenShowing(false);
     setIsTimerPlaying(true);
@@ -29,7 +48,7 @@ function App() {
     fetchData();
   }
 
-  // Dark Mode Styles \\
+  // Dark mode && Light mode coloring styles \\
   const bgStyle = {
     backgroundColor: isDarkMode ? "#031527" : "#F5F7FB",
     color: isDarkMode ? "#FFFFFF" : "#293264",
@@ -47,39 +66,8 @@ function App() {
 
   const loadingColor = isDarkMode ? "#FFFFFF" : "#000000";
 
-  const choseNumOfQuestions = (
-    <div onChange={getLenOfQuestions}>
-      <select
-        style={formStyle}
-        className="select-form"
-        name="difficulty"
-        id="difficulty"
-        form="difficultyform"
-      >
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-        <option value="20">20</option>
-      </select>
-    </div>
-  );
 
-  const choseDifficulty = (
-    <div onChange={getDifficulty}>
-      <select
-        style={formStyle}
-        className="select-form"
-        name="num"
-        id="num"
-        form="numform"
-      >
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
-      </select>
-    </div>
-  );
-
+  //  JSX of selecting Category, Difficulty , Number of questions \\
   const choseCategory = (
     <div onChange={getCategory}>
       <select
@@ -101,6 +89,40 @@ function App() {
         <option value="23">History</option>
         <option value="21">Sports</option>
         <option value="28">Vehicles</option>
+      </select>
+    </div>
+  );
+
+  const choseDifficulty = (
+    <div onChange={getDifficulty}>
+      <select
+        style={formStyle}
+        className="select-form"
+        name="num"
+        id="num"
+        form="numform"
+      >
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+    </div>
+  );
+
+
+  const choseNumOfQuestions = (
+    <div onChange={getLenOfQuestions}>
+      <select
+        style={formStyle}
+        className="select-form"
+        name="difficulty"
+        id="difficulty"
+        form="difficultyform"
+      >
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
       </select>
     </div>
   );
@@ -132,6 +154,7 @@ function App() {
     selectedCategory = "Vehicles";
   }
 
+  // Getting the selected data from Forms \\
   function getLenOfQuestions(event) {
     setQuestionLen(event.target.value);
   }
@@ -143,25 +166,7 @@ function App() {
   function getCategory(event) {
     setCategory(event.target.value);
   }
-
-  async function fetchData() {
-    try {
-      const response = await fetch(apiURL);
-      const data = await response.json();
-      const questionsWithId = data.results.map((question, index) => ({
-        ...question,
-        id: index,
-        selectedAnswer: null,
-      }));
-      setQuestions(questionsWithId);
-      setIsAnswerChecked(false);
-      setSelectedCorrectAnswersLen(0);
-      setAreAnswersClickable(true);
-      setIsLoading(false);
-    } catch (error) {
-      console.log("Error fetching data:", error);
-    }
-  }
+  
 
   function selectAnswer(questionId, answer) {
     if (!areAnswersClickable) {
@@ -248,7 +253,6 @@ function App() {
     </button>
   );
 
-
   const selectedAnswers = questions.map((ans) => ans.selectedAnswer);
 
   const quizElements = questions.map((quiz) => (
@@ -317,9 +321,7 @@ function App() {
                   </p>
                 </div>
               )}
-              <div className="check-answer-btns">
-                {checkAnswers}
-              </div>
+              <div className="check-answer-btns">{checkAnswers}</div>
             </>
           )}
         </div>
