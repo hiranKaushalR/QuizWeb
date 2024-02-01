@@ -1,6 +1,6 @@
 **<u>React Quiz App</u>**
 
-[Check out the Out come of the Project 🚀💻](https://quizbyhiran.netlify.app/)
+[Check the finale Out come of the Project 🚀💻](https://quizbyhiran.netlify.app/)
 
 **Description:**
 
