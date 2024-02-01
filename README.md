@@ -1,6 +1,6 @@
 #<u>React Quiz App</u>
 
-[Check out the Out come of the Project 🚀💻]([url](https://quizbyhiran.netlify.app/)https://quizbyhiran.netlify.app/) 
+[Check out the Out come of the Project 🚀💻](https://quizbyhiran.netlify.app/)
 
 **Description:**
 
